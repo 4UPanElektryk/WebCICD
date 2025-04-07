@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35828.75 d17.13
+VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCICD", "WebCICD\WebCICD.csproj", "{D9739D8F-7F93-415A-905E-A4B0CC8660C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCICDSupervisor", "CICDSupervisor\WebCICDSupervisor.csproj", "{CD50A7B8-0DFC-4071-AF27-554DA07CFED7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCICDServer", "WebCICD\WebCICDServer.csproj", "{D9739D8F-7F93-415A-905E-A4B0CC8660C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD50A7B8-0DFC-4071-AF27-554DA07CFED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD50A7B8-0DFC-4071-AF27-554DA07CFED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD50A7B8-0DFC-4071-AF27-554DA07CFED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD50A7B8-0DFC-4071-AF27-554DA07CFED7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D9739D8F-7F93-415A-905E-A4B0CC8660C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D9739D8F-7F93-415A-905E-A4B0CC8660C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9739D8F-7F93-415A-905E-A4B0CC8660C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
