@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace CICD.Supervisor.Connection
 {
-    class NodeInformation
-    {
-        public string ID { get; set; }
-		public string Name { get; set; }
-		public string IP { get; set; }
+	class ServerInformation
+	{
+		public string Address { get; set; }
+		public int Port { get; set; }
+
+
 	}
 }

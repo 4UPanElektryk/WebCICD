@@ -49,11 +49,15 @@
     <Compile Include="Connection\NodeInformation.cs" />
     <Compile Include="Connection\ConnectionMaintainer.cs" />
     <Compile Include="Connection\ConnectionStatus.cs" />
+    <Compile Include="Connection\ServerInformation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

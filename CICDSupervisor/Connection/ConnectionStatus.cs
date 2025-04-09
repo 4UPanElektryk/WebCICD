@@ -1,6 +1,6 @@
 ﻿namespace CICD.Supervisor.Connection
 {
-    enum ConnectionStatus
+    public enum ConnectionStatus
     {
 		Disconnected,
 		Connected,
