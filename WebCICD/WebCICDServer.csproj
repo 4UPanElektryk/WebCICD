@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D9739D8F-7F93-415A-905E-A4B0CC8660C2}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>WebCICD</RootNamespace>
+    <RootNamespace>CICD.Server</RootNamespace>
     <AssemblyName>WebCICD</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -48,6 +48,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetBase\NetBase\NetBase.csproj">
+      <Project>{539351df-ff15-4cf7-866d-3e1628339811}</Project>
+      <Name>NetBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebCICDCommon\WebCICDCommon.csproj">
+      <Project>{0be56f85-4c89-4715-8fed-692cbd497a4e}</Project>
+      <Name>WebCICDCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
