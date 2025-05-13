@@ -13,7 +13,7 @@ namespace CICD.Supervisor.RequestedTasks
 		{
 			TaskName = taskName;
 		}
-		public virtual void Execute()
+		public virtual void Execute(string[] args)
 		{
 			Console.WriteLine($"Executing task: {TaskName}");
 			// Add your task execution logic here
