@@ -8,10 +8,10 @@ namespace CICD.Supervisor.RequestedTasks
 {
     public class SupervisorTaskRunner
     {
-		private List<SupervisorTask> aquaiered;
+		private List<SupervisorTask> acquired;
 		public SupervisorTaskRunner()
 		{
-			aquaiered = new List<SupervisorTask>();
+			acquired = new List<SupervisorTask>();
 			// Constructor logic here
 		}
 		public void RunCheckinTask()

@@ -52,6 +52,7 @@ namespace CICD.Supervisor.Connection
 				{
 					if (response.Result.IsSuccessStatusCode)
 					{
+						Console.WriteLine(response.Result.Content.ReadAsStringAsync().Result);
 						Console.WriteLine("Check-in successful.");
 						failedresponses = 0;
 					}
@@ -68,10 +69,12 @@ namespace CICD.Supervisor.Connection
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine($"Exception occurred: {ex.Message}");
+					Console.Error.WriteLine($"Exception occurred: {ex.Message}");
+					Console.Error.WriteLine($"Source: {ex.Source}");
+					Console.Error.WriteLine($"Stack Trace: {ex.StackTrace}");
 					status = ConnectionStatus.Failed;
 				}
-				Task.Delay(5000).Wait(); // Wait for 5 seconds before checking again
+				Task.Delay(10000).Wait(); // Wait for 5 seconds before checking again
 			}
 		}
 		private void OnCheckinSuccessfull()

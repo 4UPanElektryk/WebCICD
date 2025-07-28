@@ -1,4 +1,6 @@
-﻿namespace CICD.Common
+﻿using CICD.Common.Node;
+
+namespace CICD.Common
 {
 	public class ServerCheckinResponse
 	{

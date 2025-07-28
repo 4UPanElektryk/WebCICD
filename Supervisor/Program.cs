@@ -1,4 +1,4 @@
-﻿using CICD.Common;
+﻿using CICD.Common.Node;
 using CICD.Supervisor.Connection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 
 namespace CICD.Supervisor
 {
@@ -25,6 +26,7 @@ namespace CICD.Supervisor
 			NodeInfo.Name = config["NodeName"].ToString();
 			NodeInfo.ID = "To Be filled by Server";
 			NodeInfo.IP = GetLocalIPAddress();
+			NodeInfo.Version = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
 			ConnectionManager.Subscribe(config["ServerAddress"].ToString(), (int)config["ServerPort"]);
 			Console.WriteLine(JsonConvert.SerializeObject(NodeInfo));
 			Console.ReadKey(true);

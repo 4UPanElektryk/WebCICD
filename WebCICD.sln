@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCICDSupervisor", "CICDSupervisor\WebCICDSupervisor.csproj", "{CD50A7B8-0DFC-4071-AF27-554DA07CFED7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCICDSupervisor", "Supervisor\WebCICDSupervisor.csproj", "{CD50A7B8-0DFC-4071-AF27-554DA07CFED7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCICDServer", "WebCICD\WebCICDServer.csproj", "{D9739D8F-7F93-415A-905E-A4B0CC8660C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCICDServer", "Server\WebCICDServer.csproj", "{D9739D8F-7F93-415A-905E-A4B0CC8660C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCICDCommon", "WebCICDCommon\WebCICDCommon.csproj", "{0BE56F85-4C89-4715-8FED-692CBD497A4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCICDCommon", "Common\WebCICDCommon.csproj", "{0BE56F85-4C89-4715-8FED-692CBD497A4E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBase", "..\NetBase\NetBase\NetBase.csproj", "{539351DF-FF15-4CF7-866D-3E1628339811}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibKvs", "LibKvs\LibKvs.csproj", "{B1A334A4-5956-4F15-855C-6CC9D5C835C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{539351DF-FF15-4CF7-866D-3E1628339811}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{539351DF-FF15-4CF7-866D-3E1628339811}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{539351DF-FF15-4CF7-866D-3E1628339811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1A334A4-5956-4F15-855C-6CC9D5C835C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1A334A4-5956-4F15-855C-6CC9D5C835C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1A334A4-5956-4F15-855C-6CC9D5C835C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1A334A4-5956-4F15-855C-6CC9D5C835C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

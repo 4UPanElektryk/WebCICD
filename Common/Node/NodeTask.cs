@@ -1,4 +1,4 @@
-﻿namespace CICD.Common
+﻿namespace CICD.Common.Node
 {
 	public struct NodeTask
 	{
