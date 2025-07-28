@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,16 +21,17 @@ namespace CICD.Server.NodeSubsystem
 		}
 		public static void LoadNodeData()
 		{
-			Console.WriteLine("Loading node data...");
 			RegisteredNodes.Clear();
-			RegisteredNodes = JsonConvert.DeserializeObject<List<Node>>(System.IO.File.ReadAllText(Path)) ?? new List<Node>();
-			RegisteredNodes.ForEach((node) => { node.Status = NodeStatus.Unreachable; });
+			if (File.Exists(Path))
+			{
+				RegisteredNodes = JsonConvert.DeserializeObject<List<Node>>(System.IO.File.ReadAllText(Path)) ?? new List<Node>();
+				RegisteredNodes.ForEach((node) => { node.Status = NodeStatus.Unreachable; });
+			}
 			Console.WriteLine($"Loaded {RegisteredNodes.Count} nodes from {Path}.");
 		}
 		public static void SaveNodeData()
 		{
-			Console.WriteLine("Saving node data...");
-			System.IO.File.WriteAllText(Path, JsonConvert.SerializeObject(RegisteredNodes, Formatting.Indented));
+			File.WriteAllText(Path, JsonConvert.SerializeObject(RegisteredNodes, Formatting.Indented));
 			Console.WriteLine($"Saved {RegisteredNodes.Count} nodes to {Path}.");
 		}
 		public static string RegisterNode(NodeInformation iNode)

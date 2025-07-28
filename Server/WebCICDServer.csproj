@@ -49,6 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\ApiEntryArgs.cs" />
+    <Compile Include="API\ApiResponseManager.cs" />
+    <Compile Include="API\ApiEntry.cs" />
+    <Compile Include="API\EntryAttribute.cs" />
+    <Compile Include="API\EntryMatchType.cs" />
+    <Compile Include="API\Logic\LogicKVS.cs" />
+    <Compile Include="API\Logic\LogicNodes.cs" />
     <Compile Include="GlobalKVS\KeyValueStore.cs" />
     <Compile Include="NodeSubsystem\Node.cs" />
     <Compile Include="NodeSubsystem\NodeManager.cs" />
