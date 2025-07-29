@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using CICD.Common.Task;
+using CICD.Supervisor.RequestedTasks;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -53,6 +55,9 @@ namespace CICD.Supervisor.Connection
 					if (response.Result.IsSuccessStatusCode)
 					{
 						Console.WriteLine(response.Result.Content.ReadAsStringAsync().Result);
+
+
+						//SupervisorTaskRunner.AddTasks(JsonConvert.DeserializeObject<TaskInfo[]>(response.Result.Content.ReadAsStringAsync().Result));
 						Console.WriteLine("Check-in successful.");
 						failedresponses = 0;
 					}

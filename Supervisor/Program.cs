@@ -1,5 +1,6 @@
 ﻿using CICD.Common.Node;
 using CICD.Supervisor.Connection;
+using CICD.Supervisor.RequestedTasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -16,6 +17,8 @@ namespace CICD.Supervisor
 
 		static void Main(string[] args)
 		{
+			SupervisorTaskRunner.Initialize();
+
 			Console.WriteLine("Configuration Loading");
 			if (!File.Exists("config.json"))
 			{

@@ -56,11 +56,13 @@
     <Compile Include="API\EntryMatchType.cs" />
     <Compile Include="API\Logic\LogicKVS.cs" />
     <Compile Include="API\Logic\LogicNodes.cs" />
+    <Compile Include="API\Logic\LogicTasks.cs" />
     <Compile Include="GlobalKVS\KeyValueStore.cs" />
     <Compile Include="NodeSubsystem\Node.cs" />
     <Compile Include="NodeSubsystem\NodeManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskSubystem\TaskManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -76,5 +78,6 @@
       <Name>WebCICDCommon</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

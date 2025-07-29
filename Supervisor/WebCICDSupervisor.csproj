@@ -52,7 +52,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestedTasks\SupervisorTaskRunner.cs" />
-    <Compile Include="RequestedTasks\SupervisorTask.cs" />
+    <Compile Include="RequestedTasks\TaskRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
