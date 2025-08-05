@@ -1,6 +1,7 @@
 ﻿using CICD.Server.API;
 using CICD.Server.GlobalKVS;
 using CICD.Server.NodeSubsystem;
+using CICD.Server.TaskSubystem;
 using NetBase.Communication;
 using System;
 using System.Text;
@@ -18,6 +19,7 @@ namespace CICD.Server
 			KeyValueStore.Initialize();
 			NodeManager.Initialize();
 			ApiResponseManager.Initialize();
+			TaskManager.Initialize();
 
 			server.Start("http://+:8080/");
 			Console.WriteLine("Press any key to exit...");

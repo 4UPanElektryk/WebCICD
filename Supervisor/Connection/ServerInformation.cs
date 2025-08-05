@@ -1,6 +1,6 @@
 ﻿namespace CICD.Supervisor.Connection
 {
-	class ServerInformation
+	public class ServerInformation
 	{
 		public string Address { get; set; }
 		public int Port { get; set; }

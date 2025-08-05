@@ -1,6 +1,5 @@
 ﻿using CICD.Server.GlobalKVS;
 using NetBase.Communication;
-using System.Text;
 
 namespace CICD.Server.API.Logic
 {
@@ -13,9 +12,9 @@ namespace CICD.Server.API.Logic
 			string value = KeyValueStore.Get(key);
 			if (value != null)
 			{
-				return new HttpResponse(StatusCode.OK, value, null, Encoding.UTF8);
+				return Respond.Text(value, StatusCode.OK);
 			}
-			return new HttpResponse(StatusCode.Not_Found, "Key not found", null, Encoding.UTF8);
+			return Respond.RequestError("Key not found", StatusCode.Not_Found);
 		}
 
 		[Entry(HttpMethod.POST, "kvs/", EntryMatchType.Prefix)]
@@ -24,10 +23,11 @@ namespace CICD.Server.API.Logic
 			string key = args.Path;
 			if (string.IsNullOrEmpty(args.Request.Body))
 			{
-				return new HttpResponse(StatusCode.Bad_Request, "No value provided", null, Encoding.UTF8);
+				return Respond.RequestError("No value provided for the key.", StatusCode.Bad_Request);
 			}
 			KeyValueStore.Set(key, args.Request.Body);
-			return new HttpResponse(StatusCode.OK, "Key Set", null, Encoding.UTF8);
+
+			return Respond.Text("Key Set", StatusCode.OK);
 		}
 
 		[Entry(HttpMethod.DELETE, "kvs/", EntryMatchType.Prefix)]
@@ -37,9 +37,9 @@ namespace CICD.Server.API.Logic
 			bool success = KeyValueStore.Remove(key);
 			if (success)
 			{
-				return new HttpResponse(StatusCode.OK, "Key Deleted", null, Encoding.UTF8);
+				return Respond.Text("Key Deleted", StatusCode.OK);
 			}
-			return new HttpResponse(StatusCode.Not_Found, "Key not found", null, Encoding.UTF8);
+			return Respond.RequestError("Key not found", StatusCode.Not_Found);
 		}
 	}
 }

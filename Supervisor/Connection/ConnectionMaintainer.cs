@@ -11,7 +11,7 @@ namespace CICD.Supervisor.Connection
 {
 	public class ConnectionManager
 	{
-		private static ServerInformation serverInfo;
+		public static ServerInformation serverInfo;
 		public static ConnectionStatus status = ConnectionStatus.Disconnected;
 		private static HttpClient client = new HttpClient();
 		public static void Subscribe(string address, int port)
@@ -55,9 +55,8 @@ namespace CICD.Supervisor.Connection
 					if (response.Result.IsSuccessStatusCode)
 					{
 						Console.WriteLine(response.Result.Content.ReadAsStringAsync().Result);
+						OnCheckinSuccessfull(JsonConvert.DeserializeObject<bool>(response.Result.Content.ReadAsStringAsync().Result));
 
-
-						//SupervisorTaskRunner.AddTasks(JsonConvert.DeserializeObject<TaskInfo[]>(response.Result.Content.ReadAsStringAsync().Result));
 						Console.WriteLine("Check-in successful.");
 						failedresponses = 0;
 					}
@@ -82,9 +81,40 @@ namespace CICD.Supervisor.Connection
 				Task.Delay(10000).Wait(); // Wait for 5 seconds before checking again
 			}
 		}
-		private void OnCheckinSuccessfull()
+		private static void OnCheckinSuccessfull(bool TasksFound)
 		{
-
+			if (!TasksFound)
+			{
+				Console.WriteLine("No tasks found for this node.");
+				return;
+			}
+			Task<HttpResponseMessage> response = client.GetAsync($"{serverInfo.Uri()}/api/tasks/{Program.NodeInfo.ID}");
+			try
+			{
+				if (response.Result.IsSuccessStatusCode)
+				{
+					string content = response.Result.Content.ReadAsStringAsync().Result;
+					TaskInfo[] tasks = JsonConvert.DeserializeObject<TaskInfo[]>(content);
+					if (tasks.Length > 0)
+					{
+						Console.WriteLine($"Found {tasks.Length} tasks for this node.");
+						SupervisorTaskRunner.AddTasks(tasks);
+						SupervisorTaskRunner.RunAcquiredTasks();
+					}
+					else
+					{
+						Console.WriteLine("No tasks found for this node.");
+					}
+				}
+				else
+				{
+					Console.WriteLine($"Failed to retrieve tasks: {response.Result.StatusCode}");
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.Error.WriteLine($"Exception occurred while retrieving tasks: {ex.Message}");
+			}
 		}
 	}
 }

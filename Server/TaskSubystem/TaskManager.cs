@@ -31,9 +31,9 @@ namespace CICD.Server.TaskSubystem
 		{
 			return tasks.FirstOrDefault(t => t.Id == id);
 		}
-		public static List<TaskInfo> GetTasksForNode(string nodeId)
+		public static TaskInfo[] GetNotStartedTasksForNode(string nodeId)
 		{
-			return tasks.Where(t => t.NodeId == nodeId).ToList();
+			return tasks.Where(t => t.NodeId == nodeId && t.Status == TaskStatus.NotStarted).ToArray();
 		}
 	}
 }

@@ -19,6 +19,13 @@ namespace CICD.Supervisor.RequestedTasks
 			{
 				Execute(task.Args);
 			}
+			catch (System.Threading.ThreadAbortException)
+			{
+				task.Status = TaskStatus.Cancelled;
+				task.FinishedAt = DateTime.UtcNow;
+				Console.WriteLine($"[@{task.Id}] Task {task.Name} was cancelled.");
+				return;
+			}
 			catch (Exception ex)
 			{
 				task.Status = TaskStatus.Failed;

@@ -21,15 +21,14 @@ namespace CICD.Server.API.Logic
 		{
 			NodeInformation info = JsonConvert.DeserializeObject<NodeInformation>(args.Request.Body);
 			NodeManager.NodeCheckin(info);
-			string response = JsonConvert.SerializeObject(TaskManager.GetTasksForNode(info.ID));
-
-			return new HttpResponse(StatusCode.OK,"",null,);
+			bool foundTasks = true;// TaskManager.GetTasksForNode(info.ID).Count > 0;
+			return new HttpResponse(StatusCode.OK, JsonConvert.SerializeObject(foundTasks), null,Encoding.UTF8,ContentType.application_json);
 		}
 
 		[Entry(HttpMethod.GET, "nodes", EntryMatchType.Exact)]
 		public static HttpResponse GetNodes(ApiEntryArgs args)
 		{
-			return new HttpResponse(StatusCode.OK, JsonConvert.SerializeObject(NodeManager.RegisteredNodes, Formatting.Indented), null, Encoding.UTF8, ContentType.application_json);
+			return new HttpResponse(StatusCode.OK, JsonConvert.SerializeObject(NodeManager.RegisteredNodes), null, Encoding.UTF8, ContentType.application_json);
 		}
 	}
 }

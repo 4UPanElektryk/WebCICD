@@ -1,7 +1,11 @@
 ﻿using CICD.Common.Task;
+using CICD.Supervisor.Connection;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading;
 
 namespace CICD.Supervisor.RequestedTasks
@@ -12,7 +16,7 @@ namespace CICD.Supervisor.RequestedTasks
 		private static List<TaskInfo> acquired;
 		private static List<TaskInfo> released;
 		private static List<TaskRunner> Runners;
-		private static List<Thread> threads;
+		public static Dictionary<ulong, Thread> runningTasks;
 
 		public static void Initialize()
 		{
@@ -28,17 +32,20 @@ namespace CICD.Supervisor.RequestedTasks
 			for (int i = 0; i < acquired.Count; i++)
 			{
 				TaskInfo task = acquired[i];
-				if (task.RunAsync)
+				if (task.Status != TaskStatus.NotStarted)
 				{
-					Thread t = new Thread(() => RunSingleTask(task));
-					t.Start();
-					threads.Add(t);
+					Console.WriteLine($"[@{task.Id}] Task {task.Name} is already started or completed, skipping.");
+					continue;
 				}
-				else
+				Thread t = new Thread(() => RunSingleTask(task));
+				runningTasks[task.Id] = t;
+				t.Start();
+				if (!task.RunAsync)
 				{
-					RunSingleTask(task);
+					t.Join();
 				}
 			}
+
 		}
 		private static void RunSingleTask(TaskInfo task)
 		{
@@ -49,27 +56,55 @@ namespace CICD.Supervisor.RequestedTasks
 				return;
 			}
 			Console.WriteLine($"[@{task.Id}] Running task: {task.Name}");
-			runner.Run(ref task);
-			if (task.Status != TaskStatus.Running)
+			Thread t = new Thread(() => runner.Run(ref task));
+			t.Start();
+			Thread.Sleep(20);
+			UpdateTaskOnServer(task);
+			while(task.Status == TaskStatus.Running)
 			{
-				released.Add(task);
+				// wait for task to finish
+			}
+			UpdateTaskOnServer(task);
+			released.Add(task);
+		}
+		private static void UpdateTaskOnServer(TaskInfo task)
+		{
+			HttpClient client = new HttpClient()
+			{
+				BaseAddress = new Uri(ConnectionManager.serverInfo.Uri())
+			};
+			try
+			{
+				var response = client.PostAsync($"/api/tasks/update", new StringContent(JsonConvert.SerializeObject(task),Encoding.UTF8, "application/json")).Result;
+				if (response.IsSuccessStatusCode)
+				{
+					Console.WriteLine($"[@{task.Id}] Task {task.Name} updated successfully on server.");
+				}
+				else
+				{
+					Console.WriteLine($"[@{task.Id}] Failed to update task {task.Name} on server: {response.StatusCode}");
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.Error.WriteLine($"[@{task.Id}] Error updating task {task.Name} on server: {ex.Message}");
 			}
 		}
 		public static void AddTasks(TaskInfo[] tasks)
 		{
-			acquired.AddRange(tasks);
-			if (acquired.Count == 0)
+			foreach (var task in tasks)
 			{
-				Console.WriteLine("No tasks to run.");
-				return;
-			}
-			Console.WriteLine($"Running {acquired.Count} tasks...");
-			foreach (var task in acquired)
-			{
-				
-				// Here you would call the actual task execution logic
-				// For example, if TaskInfo has an Execute method:
-				// task.Execute();
+				if (string.IsNullOrEmpty(task.Name))
+				{
+					Console.WriteLine("Invalid task provided, skipping.");
+					continue;
+				}
+				if (acquired.Any(t => t.Id == task.Id))
+				{
+					Console.WriteLine($"Task with ID {task.Id} already exists, skipping.");
+					continue;
+				}
+				acquired.Add(task);
 			}
 		}
 	}

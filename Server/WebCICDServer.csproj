@@ -62,6 +62,7 @@
     <Compile Include="NodeSubsystem\NodeManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Respond.cs" />
     <Compile Include="TaskSubystem\TaskManager.cs" />
   </ItemGroup>
   <ItemGroup>
