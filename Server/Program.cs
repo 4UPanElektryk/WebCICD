@@ -36,8 +36,7 @@ namespace CICD.Server
 			}
 
 
-			HttpResponse response = new HttpResponse(StatusCode.OK, "Hello World!", null, Encoding.UTF8);
-			return response;
+			return Respond.Text("Hello World!");
 		}
 	}
 }

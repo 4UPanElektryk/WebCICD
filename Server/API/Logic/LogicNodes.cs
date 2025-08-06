@@ -13,7 +13,7 @@ namespace CICD.Server.API.Logic
 		public static HttpResponse Subscribe(ApiEntryArgs args)
 		{
 			NodeInformation info = JsonConvert.DeserializeObject<NodeInformation>(args.Request.Body);
-			return new HttpResponse(StatusCode.OK, NodeManager.RegisterNode(info), null, Encoding.UTF8);
+			return Respond.Text(NodeManager.RegisterNode(info));
 		}
 
 		[Entry(HttpMethod.POST, "nodes/checkin", EntryMatchType.Exact)]
@@ -22,13 +22,13 @@ namespace CICD.Server.API.Logic
 			NodeInformation info = JsonConvert.DeserializeObject<NodeInformation>(args.Request.Body);
 			NodeManager.NodeCheckin(info);
 			bool foundTasks = true;// TaskManager.GetTasksForNode(info.ID).Count > 0;
-			return new HttpResponse(StatusCode.OK, JsonConvert.SerializeObject(foundTasks), null,Encoding.UTF8,ContentType.application_json);
+			return Respond.Json(foundTasks);
 		}
 
 		[Entry(HttpMethod.GET, "nodes", EntryMatchType.Exact)]
 		public static HttpResponse GetNodes(ApiEntryArgs args)
 		{
-			return new HttpResponse(StatusCode.OK, JsonConvert.SerializeObject(NodeManager.RegisteredNodes), null, Encoding.UTF8, ContentType.application_json);
+			return Respond.Json(NodeManager.RegisteredNodes);
 		}
 	}
 }

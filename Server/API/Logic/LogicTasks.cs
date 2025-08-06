@@ -20,7 +20,7 @@ namespace CICD.Server.API.Logic
 			// Here you would typically update the task in your database or in-memory store.
 			// For this example, we will just return the updated task as a response.
 
-			return Respond.Json(task);
+			return Respond.OK;
 		}
 
 		[Entry(HttpMethod.GET, "tasks",EntryMatchType.Prefix)]

@@ -5,6 +5,13 @@ namespace CICD.Server
 {
 	public class Respond
 	{
+		public static HttpResponse OK = new HttpResponse(
+			StatusCode.OK,
+			"OK",
+			null,
+			Encoding.UTF8,
+			ContentType.text_plain
+		);
 		public static HttpResponse Json(object data)
 		{
 			string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
