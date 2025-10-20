@@ -27,8 +27,11 @@ namespace CICD.Supervisor.Connection
 					Program.NodeInfo.ID = response.Result.Content.ReadAsStringAsync().Result;
 					Console.WriteLine("Subscription successful.");
 					status = ConnectionStatus.Connected;
-					Thread d = new Thread(Loop);
-					d.IsBackground = true; // Set the thread as a background thread
+					Thread d = new Thread(Loop)
+					{
+						IsBackground = true, // Set the thread as a background thread
+						Name = "CheckinThread" // Optional: Set a name for the thread
+					};
 					d.Start();
 					Console.WriteLine("Background thread started.");
 				}
@@ -40,7 +43,7 @@ namespace CICD.Supervisor.Connection
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine($"Exception occurred: {ex.Message}");
+				Console.Error.WriteLine($"Exception occurred: {ex.Message}");
 				status = ConnectionStatus.Failed;
 			}
 		}
@@ -66,7 +69,7 @@ namespace CICD.Supervisor.Connection
 						failedresponses++;
 						if (failedresponses > 3)
 						{
-							Console.WriteLine("Too many failed responses. Disconnecting.");
+							Console.Error.WriteLine("Too many failed responses. Disconnecting.");
 							status = ConnectionStatus.Disconnected;
 						}
 					}
